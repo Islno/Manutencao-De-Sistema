@@ -501,13 +501,19 @@
             <div class="text-[11px] font-mono-code text-slate-400 mb-1">
               Trecho original quebrado no Site Fake:
             </div>
-            <pre id="mission-broken-code" class="bg-slate-950 text-red-300 border border-slate-800 rounded p-2.5 text-[11px] font-mono-code overflow-x-auto whitespace-pre-wrap"></pre>
+            <pre
+              id="mission-broken-code"
+              oncopy="handleConsoleCopyPasteBlock(event)"
+              oncut="handleConsoleCopyPasteBlock(event)"
+              oncontextmenu="handleConsoleCopyPasteBlock(event)"
+              class="select-none bg-slate-950 text-red-300 border border-slate-800 rounded p-2.5 text-[11px] font-mono-code overflow-x-auto whitespace-pre-wrap"
+            ></pre>
           </div>
 
           <!-- Campo para o aluno digitar o código que resolve o problema -->
           <div>
             <div class="flex items-center justify-between text-[11px] mb-1">
-              <span class="font-mono-code text-emerald-300 font-semibold">Digite aqui o seu código corrigido:</span>
+              <span class="font-mono-code text-emerald-300 font-semibold">Digite aqui o seu código corrigido (Cópia/Cola bloqueado):</span>
               <button onclick="clearStudentEditor()" class="text-slate-400 hover:text-white underline cursor-pointer">
                 Restaurar trecho original
               </button>
@@ -516,7 +522,14 @@
               id="mission-patch-editor"
               rows="6"
               spellcheck="false"
-              placeholder="Adapte o código exemplo do PDF e digite aqui..."
+               autocomplete="off"
+              onpaste="handleConsoleCopyPasteBlock(event)"
+              oncopy="handleConsoleCopyPasteBlock(event)"
+              oncut="handleConsoleCopyPasteBlock(event)"
+              ondrop="handleConsoleCopyPasteBlock(event)"
+              onkeydown="handleConsoleKeydownBlock(event)"
+              oncontextmenu="handleConsoleCopyPasteBlock(event)"
+              placeholder="Adapte o código exemplo do PDF e digite manualmente aqui..."
               class="w-full bg-slate-950 border border-slate-600 focus:border-amber-400 rounded p-2.5 text-xs font-mono-code text-emerald-200 focus:outline-none"
             ></textarea>
             <div id="code-validation-feedback" class="hidden mt-2 p-2 rounded text-xs font-mono-code"></div>
@@ -1305,6 +1318,29 @@
       if (!mission) return;
       document.getElementById("mission-patch-editor").value = mission.brokenCode;
       document.getElementById("code-validation-feedback").classList.add("hidden");
+    }
+
+    function handleConsoleCopyPasteBlock(event) {
+      event.preventDefault();
+      const feedbackEl = document.getElementById("code-validation-feedback");
+      if (feedbackEl) {
+        feedbackEl.className = "mt-2 p-2 rounded text-xs font-mono-code bg-amber-950 border border-amber-700 text-amber-200";
+        feedbackEl.textContent = "Bloqueado: Não é permitido copiar ou colar dentro do console de código. Digite a solução manualmente.";
+        feedbackEl.classList.remove("hidden");
+      }
+      showToast("Copiar e colar está desativado no console. Digite o código manualmente.", "error");
+      return false;
+    }
+
+    function handleConsoleKeydownBlock(event) {
+      const key = event.key ? event.key.toLowerCase() : "";
+      const isCtrlOrCmd = event.ctrlKey || event.metaKey;
+      const isShiftInsert = event.shiftKey && key === "insert";
+      const isCtrlInsert = event.ctrlKey && key === "insert";
+
+      if ((isCtrlOrCmd && (key === "v" || key === "c" || key === "x")) || isShiftInsert || isCtrlInsert) {
+        handleConsoleCopyPasteBlock(event);
+      }
     }
 
     function applyCurrentMissionPatch() {
