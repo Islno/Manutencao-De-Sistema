@@ -10,11 +10,21 @@
   <style>
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #f4f4f5;
-      color: #18181b;
+      background-color: #cbd5e1;
+      color: #0f172a;
     }
     .font-mono-code {
       font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ==========================================================================
+       ESTILO EXCLUSIVO DO "SITE FAKE" (ERP CORPORATIVO LEGADO DE 2021)
+       Usa tipografia e cores de intranet antiga para diferenciar da disciplina
+       ========================================================================== */
+    .fake-site-canvas {
+      font-family: Tahoma, Verdana, 'Segoe UI', sans-serif;
+      background-color: #f7f6f2;
+      color: #1f2937;
     }
 
     /* ==========================================================================
@@ -23,7 +33,7 @@
        ========================================================================== */
     .legacy-float-brokenHeader {
       display: block !important;
-      height: 52px;
+      height: 54px;
       position: relative;
     }
     .legacy-float-brokenHeader .header-brand {
@@ -35,7 +45,7 @@
       width: 60%;
       margin-top: -10px;
       margin-left: -45px;
-      background: #27272a;
+      background: #172554;
       border: 1px solid #dc2626;
     }
 
@@ -103,81 +113,86 @@
 <body class="min-h-screen flex flex-col">
 
   <!-- ==========================================================================
-       BARRA SUPERIOR SÓBRIA (CABEÇALHO DA DISCIPLINA)
+       BARRA SUPERIOR DA DISCIPLINA (PORTAL ACADÊMICO ESCURO)
        ========================================================================== -->
-  <header class="no-print bg-white border-b border-zinc-300 px-4 sm:px-6 py-3 sticky top-0 z-30">
+  <header class="no-print bg-slate-900 text-white border-b border-slate-700 px-4 sm:px-6 py-3 sticky top-0 z-30 shadow">
     <div class="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <div class="flex items-center gap-2.5">
-          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-            Disciplina: Manutenção de Sistemas
-          </span>
-          <span class="text-zinc-300">|</span>
-          <span id="system-health-badge" class="text-xs font-medium text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded">
-            12 correções pendentes
-          </span>
+      <div class="flex items-center gap-3">
+        <div class="px-2.5 py-1 rounded bg-slate-800 border border-slate-600 text-[11px] font-mono-code font-semibold uppercase tracking-wider text-slate-200">
+          Ambiente da Disciplina
         </div>
-        <h1 class="text-base font-bold text-zinc-900 mt-0.5">
-          Ambiente de Manutenção — SysMaint ERP v1.4
-        </h1>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-sm sm:text-base font-bold text-white">
+              Laboratório Prático de Manutenção de Sistemas
+            </h1>
+            <span class="text-slate-600">|</span>
+            <span id="system-health-badge" class="text-xs font-medium text-red-300 bg-red-950/80 border border-red-800 px-2 py-0.5 rounded">
+              12 correções pendentes
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400">
+            À esquerda está o sistema legado com defeito (Site Fake); à direita está o editor da disciplina para aplicar as correções.
+          </p>
+        </div>
       </div>
 
-      <!-- Ações e Progresso Simples -->
+      <!-- Ações e Progresso da Disciplina -->
       <div class="flex flex-wrap items-center gap-3">
-        <div class="hidden sm:flex items-center gap-2 text-xs text-zinc-600 mr-2">
-          <span>Blocos corrigidos:</span>
-          <strong id="missions-progress-text" class="font-mono-code text-zinc-900">0/12</strong>
-          <div class="w-24 h-1.5 bg-zinc-200 rounded overflow-hidden">
-            <div id="missions-progress-bar" class="h-full bg-zinc-800 transition-all duration-300" style="width: 0%"></div>
+        <div class="hidden sm:flex items-center gap-2 text-xs text-slate-300 bg-slate-800 px-3 py-1.5 rounded border border-slate-700">
+          <span>Progresso do Aluno:</span>
+          <strong id="missions-progress-text" class="font-mono-code text-white">0/12</strong>
+          <div class="w-20 h-1.5 bg-slate-700 rounded overflow-hidden">
+            <div id="missions-progress-bar" class="h-full bg-emerald-400 transition-all duration-300" style="width: 0%"></div>
           </div>
         </div>
 
-        <button onclick="openPdfManualModal()" class="px-3 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs transition cursor-pointer">
-          Manual PDF do Aluno (Teoria e Exemplos)
+        <button onclick="openPdfManualModal()" class="px-3.5 py-1.5 rounded bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs transition cursor-pointer shadow-sm">
+          Abrir apostila PDF do Aluno
         </button>
 
         <div class="relative">
-          <button onclick="toggleTeacherMenu()" class="px-3 py-1.5 rounded border border-zinc-300 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-medium transition cursor-pointer">
-            Opções
+          <button onclick="toggleTeacherMenu()" class="px-3 py-1.5 rounded border border-slate-600 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium transition cursor-pointer">
+            Opções (Professor)
           </button>
 
           <!-- Dropdown protegido por senha (Islanio12.) -->
-          <div id="teacher-dropdown" class="hidden absolute right-0 mt-1.5 w-64 bg-white border border-zinc-300 rounded shadow-lg p-3 z-50">
+          <div id="teacher-dropdown" class="hidden absolute right-0 mt-1.5 w-64 bg-slate-900 border border-slate-600 rounded shadow-xl p-3 z-50 text-slate-100">
             <div id="teacher-Lock-View">
-              <label class="block text-[11px] font-semibold text-zinc-700 uppercase mb-1">
-                Acesso Restrito (Opções)
+              <label class="block text-[11px] font-semibold text-slate-300 uppercase mb-1">
+                Acesso Restrito ao Professor
               </label>
-              <p class="text-[11px] text-zinc-500 mb-2">Digite a senha do professor para liberar os controles:</p>
+              <p class="text-[11px] text-slate-400 mb-2">Digite a senha para liberar as opções:</p>
               <input
                 type="password"
                 id="teacher-password-input"
                 onkeydown="if(event.key === 'Enter') verifyTeacherPassword()"
                 placeholder="Senha..."
-                class="w-full px-2.5 py-1.5 text-xs rounded border border-zinc-300 bg-white text-zinc-900 font-mono-code mb-2 focus:outline-none focus:border-zinc-700"
+                class="w-full px-2.5 py-1.5 text-xs rounded border border-slate-600 bg-slate-950 text-white font-mono-code mb-2 focus:outline-none focus:border-amber-400"
               >
-              <div id="teacher-password-error" class="hidden text-[11px] text-red-700 mb-2">
+              <div id="teacher-password-error" class="hidden text-[11px] text-red-400 mb-2">
                 Senha incorreta.
               </div>
-              <button onclick="verifyTeacherPassword()" class="w-full py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium cursor-pointer">
+              <button onclick="verifyTeacherPassword()" class="w-full py-1.5 rounded bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-semibold cursor-pointer">
                 Desbloquear
               </button>
             </div>
 
             <div id="teacher-Unlocked-View" class="hidden space-y-1">
-              <div class="flex items-center justify-between border-b border-zinc-200 pb-1.5 mb-1.5">
-                <span class="text-[11px] font-semibold text-zinc-500 uppercase">Painel de Opções</span>
-                <button onclick="lockTeacherMenu()" class="text-[11px] text-zinc-500 hover:text-zinc-800 underline cursor-pointer">Bloquear</button>
+              <div class="flex items-center justify-between border-b border-slate-700 pb-1.5 mb-1.5">
+                <span class="text-[11px] font-semibold text-amber-400 uppercase">Opções Liberadas</span>
+                <button onclick="lockTeacherMenu()" class="text-[11px] text-slate-400 hover:text-white underline cursor-pointer">Bloquear</button>
               </div>
-              <button onclick="fillRecommendedPatch()" class="w-full text-left px-2.5 py-1.5 text-xs rounded hover:bg-zinc-100 text-zinc-800 font-medium cursor-pointer">
+              <button onclick="fillRecommendedPatch()" class="w-full text-left px-2.5 py-1.5 text-xs rounded hover:bg-slate-800 text-slate-200 font-medium cursor-pointer">
                 Preencher resposta do bloco atual
               </button>
-              <button onclick="fixAllMissionsDemo()" class="w-full text-left px-2.5 py-1.5 text-xs rounded hover:bg-zinc-100 text-zinc-800 font-medium cursor-pointer">
+              <button onclick="fixAllMissionsDemo()" class="w-full text-left px-2.5 py-1.5 text-xs rounded hover:bg-slate-800 text-slate-200 font-medium cursor-pointer">
                 Aplicar todas as 12 correções
               </button>
-              <button onclick="resetAllMissionsDemo()" class="w-full text-left px-2.5 py-1.5 text-xs rounded hover:bg-zinc-100 text-red-700 font-medium cursor-pointer">
+              <button onclick="resetAllMissionsDemo()" class="w-full text-left px-2.5 py-1.5 text-xs rounded hover:bg-slate-800 text-red-400 font-medium cursor-pointer">
                 Restaurar sistema quebrado
               </button>
-              <button onclick="downloadBrokenSourceCode()" class="w-full text-left px-2.5 py-1.5 text-xs rounded hover:bg-zinc-100 text-zinc-700 font-medium border-t border-zinc-200 mt-1 pt-1.5 cursor-pointer">
+              <button onclick="downloadBrokenSourceCode()" class="w-full text-left px-2.5 py-1.5 text-xs rounded hover:bg-slate-800 text-slate-300 font-medium border-t border-slate-700 mt-1 pt-1.5 cursor-pointer">
                 Baixar sistema_quebrado.html
               </button>
             </div>
@@ -188,143 +203,173 @@
   </header>
 
   <!-- ==========================================================================
-       CONTEÚDO PRINCIPAL: SOMENTE O SITE FAKE + EDITOR DE CÓDIGO DO ALUNO
+       CONTEÚDO PRINCIPAL DIVIDIDO EM DUAS ÁREAS VISUALMENTE DISTINTAS:
+       1) ESQUERDA: JANELA DO NAVEGADOR COM O "SITE FAKE" (SISTEMA DO CLIENTE)
+       2) DIREITA: BANCADA ESCURA DA DISCIPLINA (EDITOR DE CÓDIGO DO ALUNO)
        ========================================================================== -->
   <main class="no-print flex-1 max-w-[1440px] w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
     <!-- ========================================================================
-         COLUNA ESQUERDA (7 COLUNAS): SOMENTE O SITE FAKE COM OS ERROS
+         COLUNA ESQUERDA (7 COLUNAS): MOLDURA DE NAVEGADOR COM O "SITE FAKE"
          ======================================================================== -->
-    <section class="lg:col-span-7 flex flex-col gap-4">
+    <section class="lg:col-span-7 flex flex-col">
 
-      <div class="bg-white border border-zinc-300 rounded shadow-sm overflow-hidden">
-        <!-- Barra de endereço simulada -->
-        <div class="bg-zinc-100 px-4 py-2 border-b border-zinc-300 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <!-- Etiqueta identificando que este lado é o Site Fake em análise -->
+      <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-800 text-slate-200 px-3.5 py-2 rounded-t border-t border-x border-slate-700 text-xs">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-amber-500/20 border border-amber-400/40 text-amber-300 font-mono-code font-semibold text-[11px]">
+            SITE FAKE (ALVO DA MANUTENÇÃO)
+          </span>
+          <span class="text-slate-300 font-medium">
+            Janela de Simulação do Sistema Legado do Cliente
+          </span>
+        </div>
+        <span class="text-[11px] text-slate-400 font-mono-code">Build 2021</span>
+      </div>
+
+      <!-- Moldura de Navegador Web (Simula um browser real rodando o site fake) -->
+      <div class="bg-zinc-200 border-2 border-slate-700 rounded-b shadow-lg overflow-hidden">
+
+        <!-- Aba e Barra de Endereço do Navegador Simulado -->
+        <div class="bg-zinc-300 pt-2 px-3 border-b border-zinc-400">
           <div class="flex items-center gap-2">
-            <span class="font-semibold text-zinc-700">Navegador Interno:</span>
-            <span class="font-mono-code text-zinc-500">https://intranet.sysmaint.local/almoxarifado</span>
+            <div class="flex items-center gap-1.5 mr-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-zinc-500 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-zinc-500 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-zinc-500 inline-block"></span>
+            </div>
+            <div class="bg-zinc-100 border-t border-x border-zinc-400 rounded-t px-3 py-1 text-xs font-medium text-zinc-800 flex items-center gap-2">
+              <span>SysMaint ERP v1.4 — Intranet Corporativa</span>
+            </div>
           </div>
-          <div class="flex items-center gap-3">
-            <span id="browser-security-lock" class="font-mono-code text-[11px] text-red-700">
-              Conteúdo Misto (HTTP)
-            </span>
+
+          <div class="bg-zinc-100 -mx-3 px-3 py-2 border-t border-zinc-400 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2 flex-1 min-w-[220px] bg-white border border-zinc-300 rounded px-2.5 py-1">
+              <span class="font-mono-code text-[11px] text-zinc-400">URL:</span>
+              <span class="font-mono-code text-zinc-700 truncate">https://intranet.sysmaint.local/almoxarifado/index.php</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="browser-security-lock" class="font-mono-code text-[11px] px-2 py-0.5 rounded bg-red-100 text-red-800 border border-red-300">
+                Alerta: Conteúdo Misto (HTTP)
+              </span>
+            </div>
           </div>
         </div>
 
-        <!-- CORPO INTERNO DO SISTEMA FAKE (SEM DICAS EXPLÍCITAS) -->
-        <div id="fake-erp-viewport" class="p-5 bg-white text-zinc-800 space-y-5">
+        <!-- CORPO INTERNO DO SITE FAKE (VISUAL DE ERP CORPORATIVO ANTIGO AZUL/CREME) -->
+        <div id="fake-erp-viewport" class="fake-site-canvas p-5 space-y-5 border-t border-zinc-300">
 
           <!-- Aviso de bloqueio de ano hardcoded -->
-          <div id="erp-mission-04-banner" class="bg-red-50 border border-red-300 text-red-900 p-3.5 rounded text-xs">
-            <strong class="font-semibold block text-red-950">Erro de Validação do Exercício Contábil:</strong>
+          <div id="erp-mission-04-banner" class="bg-red-50 border-l-4 border-red-700 border border-red-300 text-red-950 p-3 text-xs">
+            <strong class="font-bold block">ERRO DE SISTEMA [CÓD. E-2024]:</strong>
             <span>
-              O período limite configurado no sistema (<code class="font-mono-code bg-red-100 px-1">2024-12-31</code>) é inferior ao ano atual do servidor (<strong id="current-year-detected">2026</strong>). Novos lançamentos estão bloqueados.
+              O exercício contábil máximo configurado neste módulo (<code class="font-mono-code bg-red-100 px-1">2024-12-31</code>) expirou frente ao ano atual do servidor (<strong id="current-year-detected">2026</strong>). Novos registros estão travados.
             </span>
           </div>
 
-          <!-- Cabeçalho do ERP -->
-          <div id="erp-header-container" class="legacy-float-brokenHeader bg-zinc-900 text-white p-3.5 rounded">
+          <!-- Cabeçalho do Site Fake (Azul Corporativo Antigo) -->
+          <div id="erp-header-container" class="legacy-float-brokenHeader bg-[#1e3a5f] text-white p-3.5 border border-[#0f2942]">
             <div class="header-brand flex items-center gap-3">
               <div id="erp-logo-wrapper">
-                <div id="erp-broken-logo" class="w-16 h-10 bg-zinc-800 border border-dashed border-red-400 flex flex-col items-center justify-center text-[10px] font-mono-code text-red-300 leading-tight">
+                <div id="erp-broken-logo" class="w-16 h-10 bg-[#152944] border border-dashed border-red-300 flex flex-col items-center justify-center text-[10px] font-mono-code text-red-200 leading-tight">
                   <span>IMG 404</span>
                   <span>(HTTP)</span>
                 </div>
-                <div id="erp-fixed-logo" class="hidden w-10 h-10 rounded bg-zinc-700 border border-zinc-600 flex items-center justify-center font-bold text-xs tracking-wider text-white">
+                <div id="erp-fixed-logo" class="hidden w-10 h-10 bg-[#0f2942] border border-sky-300/40 flex items-center justify-center font-bold text-xs tracking-wider text-white">
                   SM
                 </div>
               </div>
 
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="font-bold text-sm text-white">SysMaint ERP</span>
-                  <span class="text-[11px] font-mono-code text-zinc-400">v1.4 (Build 2021)</span>
+                  <span class="font-bold text-sm tracking-tight text-white">SYSMAINT CORPORATIVO</span>
+                  <span class="text-[11px] font-mono-code text-sky-200">v1.4</span>
                 </div>
-                <p class="text-[11px] text-zinc-400">Gestão de Almoxarifado e Ordens de Serviço</p>
+                <p class="text-[11px] text-sky-100/80">Módulo Interno de Almoxarifado e Ordens de Serviço</p>
               </div>
             </div>
 
-            <nav class="header-nav flex items-center gap-3 px-3 py-1.5 rounded text-xs text-zinc-200">
-              <span>Almoxarifado</span>
-              <span class="text-zinc-500">/</span>
-              <span>Ordens de Serviço</span>
-              <span class="text-zinc-500">/</span>
+            <nav class="header-nav flex items-center gap-3 px-3 py-1.5 text-xs text-sky-100">
+              <span class="underline">Almoxarifado</span>
+              <span class="text-sky-300/50">|</span>
+              <span>Chamados Técnicos</span>
+              <span class="text-sky-300/50">|</span>
               <span id="erp-ssl-seal" class="font-mono-code text-[11px] text-red-300">
                 CDN 2019: Offline
               </span>
             </nav>
           </div>
 
-          <!-- Indicadores Operacionais -->
+          <!-- Indicadores Operacionais do ERP -->
           <div class="pt-1 clear-both">
-            <div class="flex items-center justify-between mb-2">
-              <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Indicadores Operacionais</h2>
-              <span id="btn-inspect-layout-kpi" class="text-[11px] text-zinc-400 font-mono-code"></span>
+            <div class="flex items-center justify-between mb-2 border-b border-stone-300 pb-1">
+              <h2 class="text-xs font-bold uppercase tracking-wide text-[#1e3a5f]">Resumo Operacional do Setor</h2>
+              <span id="btn-inspect-layout-kpi" class="text-[11px] text-stone-500 font-mono-code"></span>
             </div>
 
             <div id="erp-kpi-container" class="legacy-float-brokenKpis">
-              <div id="kpi-card-stock" class="kpi-card-item bg-zinc-50 p-3 rounded border border-zinc-300">
-                <div class="text-[11px] font-medium text-zinc-500">Saldo em Estoque</div>
-                <div id="kpi-total-units" class="text-lg font-bold text-zinc-900 font-mono-code mt-0.5">25 un</div>
-                <div id="kpi-stock-status-note" class="text-[11px] text-zinc-500 mt-1">Total físico</div>
+              <div id="kpi-card-stock" class="kpi-card-item bg-white p-3 border border-stone-300 shadow-2xs">
+                <div class="text-[11px] font-semibold text-stone-500 uppercase">Saldo Físico</div>
+                <div id="kpi-total-units" class="text-lg font-bold text-stone-900 font-mono-code mt-0.5">25 un</div>
+                <div id="kpi-stock-status-note" class="text-[11px] text-stone-500 mt-1">Soma de itens</div>
               </div>
 
-              <div id="kpi-card-tax" class="kpi-card-item bg-zinc-50 p-3 rounded border border-zinc-300">
-                <div class="text-[11px] font-medium text-zinc-500">Patrimônio c/ Imposto</div>
-                <div id="kpi-total-patrimony" class="text-lg font-bold text-zinc-900 font-mono-code mt-0.5">R$ 0,00</div>
-                <div id="kpi-tax-note" class="text-[11px] text-zinc-500 mt-1">Alíquota aplicada: 4%</div>
+              <div id="kpi-card-tax" class="kpi-card-item bg-white p-3 border border-stone-300 shadow-2xs">
+                <div class="text-[11px] font-semibold text-stone-500 uppercase">Patrimônio c/ ICMS</div>
+                <div id="kpi-total-patrimony" class="text-lg font-bold text-stone-900 font-mono-code mt-0.5">R$ 0,00</div>
+                <div id="kpi-tax-note" class="text-[11px] text-stone-500 mt-1">Alíquota aplicada: 4%</div>
               </div>
 
-              <div id="kpi-card-efficiency" class="kpi-card-item bg-zinc-50 p-3 rounded border border-zinc-300">
-                <div class="text-[11px] font-medium text-zinc-500">Índice de Resolução</div>
+              <div id="kpi-card-efficiency" class="kpi-card-item bg-white p-3 border border-stone-300 shadow-2xs">
+                <div class="text-[11px] font-semibold text-stone-500 uppercase">Índice SLA</div>
                 <div id="kpi-efficiency-value" class="text-lg font-bold text-red-700 font-mono-code mt-0.5">NaN%</div>
-                <div id="kpi-efficiency-note" class="text-[11px] text-zinc-500 mt-1">Chamados concluídos</div>
+                <div id="kpi-efficiency-note" class="text-[11px] text-stone-500 mt-1">Chamados resolvidos</div>
               </div>
 
-              <div id="kpi-card-storage" class="kpi-card-item bg-zinc-50 p-3 rounded border border-zinc-300">
-                <div class="text-[11px] font-medium text-zinc-500">Log de Auditoria</div>
+              <div id="kpi-card-storage" class="kpi-card-item bg-white p-3 border border-stone-300 shadow-2xs">
+                <div class="text-[11px] font-semibold text-stone-500 uppercase">Log de Auditoria</div>
                 <div id="kpi-storage-status" class="text-sm font-bold text-red-700 font-mono-code mt-1">SyntaxError</div>
-                <div id="kpi-storage-note" class="text-[11px] text-zinc-500 mt-1">Leitura local</div>
+                <div id="kpi-storage-note" class="text-[11px] text-stone-500 mt-1">Armazenamento local</div>
               </div>
             </div>
             <div class="clear-both"></div>
           </div>
 
-          <!-- Controle de Almoxarifado -->
-          <div class="border border-zinc-300 rounded p-4 clear-both">
-            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-zinc-200">
-              <h3 class="font-semibold text-zinc-900 text-sm">1. Almoxarifado — Cadastro e Consulta de Materiais</h3>
-              <span id="form-validation-badge" class="text-[11px] font-mono-code text-zinc-500"></span>
+          <!-- Controle de Almoxarifado do Site Fake -->
+          <div class="bg-white border border-stone-300 p-4 clear-both">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-3 border-b border-stone-300">
+              <h3 class="font-bold text-[#1e3a5f] text-xs uppercase">1. Controle de Almoxarifado — Entrada e Consulta</h3>
+              <span id="form-validation-badge" class="text-[11px] font-mono-code text-stone-500"></span>
             </div>
 
             <!-- Formulário de Entrada -->
-            <div id="erp-stock-form-box" class="bg-zinc-50 p-3 rounded border border-zinc-200 mb-4">
+            <div id="erp-stock-form-box" class="bg-[#f2efe9] p-3 border border-stone-300 mb-4">
               <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-end">
                 <div class="sm:col-span-4">
-                  <label class="block text-[11px] font-medium text-zinc-700 mb-1">Descrição do Material</label>
-                  <input type="text" id="input-item-name" value="Memória RAM DDR4 16GB" class="w-full px-2.5 py-1.5 text-xs rounded border border-zinc-300 bg-white text-zinc-900 focus:outline-none focus:border-zinc-600">
+                  <label class="block text-[11px] font-semibold text-stone-700 mb-1">Material / Peça</label>
+                  <input type="text" id="input-item-name" value="Memória RAM DDR4 16GB" class="w-full px-2 py-1.5 text-xs border border-stone-400 bg-white text-stone-900 focus:outline-none focus:border-[#1e3a5f]">
                 </div>
 
                 <div class="sm:col-span-2">
-                  <label class="block text-[11px] font-medium text-zinc-700 mb-1">Quantidade</label>
-                  <input type="number" id="input-item-qty" value="5" class="w-full px-2.5 py-1.5 text-xs rounded border border-zinc-300 bg-white text-zinc-900 font-mono-code focus:outline-none focus:border-zinc-600">
+                  <label class="block text-[11px] font-semibold text-stone-700 mb-1">Quantidade</label>
+                  <input type="number" id="input-item-qty" value="5" class="w-full px-2 py-1.5 text-xs border border-stone-400 bg-white text-stone-900 font-mono-code focus:outline-none focus:border-[#1e3a5f]">
                 </div>
 
                 <div class="sm:col-span-2">
-                  <label class="block text-[11px] font-medium text-zinc-700 mb-1">Valor Unit. (R$)</label>
-                  <input type="number" id="input-item-price" value="250" step="0.01" class="w-full px-2.5 py-1.5 text-xs rounded border border-zinc-300 bg-white text-zinc-900 font-mono-code focus:outline-none focus:border-zinc-600">
+                  <label class="block text-[11px] font-semibold text-stone-700 mb-1">Custo Unit. (R$)</label>
+                  <input type="number" id="input-item-price" value="250" step="0.01" class="w-full px-2 py-1.5 text-xs border border-stone-400 bg-white text-stone-900 font-mono-code focus:outline-none focus:border-[#1e3a5f]">
                 </div>
 
                 <div class="sm:col-span-2">
-                  <label class="block text-[11px] font-medium text-zinc-700 mb-1">
-                    Data <span id="date-lock-label" class="text-zinc-500"></span>
+                  <label class="block text-[11px] font-semibold text-stone-700 mb-1">
+                    Data Entrada <span id="date-lock-label" class="text-stone-500"></span>
                   </label>
-                  <input type="date" id="input-item-date" value="2026-11-12" max="2024-12-31" class="w-full px-2 py-1.5 text-xs rounded border border-zinc-300 bg-white text-zinc-900 font-mono-code">
+                  <input type="date" id="input-item-date" value="2026-11-12" max="2024-12-31" class="w-full px-1.5 py-1.5 text-xs border border-stone-400 bg-white text-stone-900 font-mono-code">
                 </div>
 
                 <div class="sm:col-span-2">
-                  <button type="button" onclick="handleErpAddStockItem()" class="w-full px-3 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs transition cursor-pointer">
-                    Registrar
+                  <button type="button" onclick="handleErpAddStockItem()" class="w-full px-3 py-1.5 bg-[#1e3a5f] hover:bg-[#152944] text-white font-semibold text-xs transition cursor-pointer">
+                    Cadastrar
                   </button>
                 </div>
               </div>
@@ -336,34 +381,34 @@
                 type="text"
                 id="erp-search-input"
                 onkeydown="handleErpSearchKeydown(event)"
-                placeholder="Pesquisar material no estoque..."
-                class="flex-1 bg-white px-3 py-1.5 rounded border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:border-zinc-600"
+                placeholder="Buscar descrição na tabela de estoque..."
+                class="flex-1 bg-white px-2.5 py-1.5 border border-stone-400 text-xs text-stone-900 focus:outline-none focus:border-[#1e3a5f]"
               >
-              <button type="submit" class="px-3 py-1.5 rounded border border-zinc-300 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-medium cursor-pointer">
-                Filtrar
+              <button type="submit" class="px-3.5 py-1.5 border border-stone-400 bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold cursor-pointer">
+                Pesquisar
               </button>
             </form>
 
-            <div id="erp-search-crash-alert" class="hidden mb-3 p-2.5 rounded bg-red-50 border border-red-300 text-red-900 text-xs">
+            <div id="erp-search-crash-alert" class="hidden mb-3 p-2.5 bg-red-50 border border-red-300 text-red-900 text-xs">
               <span>
-                <strong>Falha ao executar busca:</strong> O formulário recarregou sem filtrar os registros.
+                <strong>Erro de Submissão:</strong> A página tentou recarregar sem aplicar o filtro da pesquisa.
               </span>
             </div>
 
             <!-- Tabela de Estoque -->
-            <div class="overflow-x-auto border border-zinc-200 rounded">
+            <div class="overflow-x-auto border border-stone-300">
               <table class="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr class="bg-zinc-100 text-zinc-700 border-b border-zinc-200">
-                    <th class="py-2 px-3 font-semibold">Cód.</th>
-                    <th class="py-2 px-3 font-semibold">Descrição</th>
-                    <th class="py-2 px-3 font-semibold">Qtd.</th>
-                    <th class="py-2 px-3 font-semibold">Valor Unit.</th>
-                    <th class="py-2 px-3 font-semibold">Situação</th>
-                    <th class="py-2 px-3 font-semibold text-right">Entrada Rápida</th>
+                  <tr class="bg-[#e6e2d8] text-stone-800 border-b border-stone-300">
+                    <th class="py-2 px-2.5 font-bold">Cód.</th>
+                    <th class="py-2 px-2.5 font-bold">Material</th>
+                    <th class="py-2 px-2.5 font-bold">Saldo</th>
+                    <th class="py-2 px-2.5 font-bold">Valor Unit.</th>
+                    <th class="py-2 px-2.5 font-bold">Alerta</th>
+                    <th class="py-2 px-2.5 font-bold text-right">Ajuste</th>
                   </tr>
                 </thead>
-                <tbody id="erp-stock-tbody" class="divide-y divide-zinc-200 bg-white">
+                <tbody id="erp-stock-tbody" class="divide-y divide-stone-200 bg-white">
                   <!-- Preenchido via JS -->
                 </tbody>
               </table>
@@ -371,10 +416,10 @@
           </div>
 
           <!-- Ordens de Serviço e Backup -->
-          <div class="border border-zinc-300 rounded p-4">
-            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-zinc-200">
-              <h3 class="font-semibold text-zinc-900 text-sm">2. Ordens de Serviço e Rotina de Backup</h3>
-              <button id="btn-erp-export-backup" onclick="handleErpExportBackup()" class="px-3 py-1.5 rounded border border-zinc-300 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-medium text-xs transition cursor-pointer">
+          <div class="bg-white border border-stone-300 p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-3 border-b border-stone-300">
+              <h3 class="font-bold text-[#1e3a5f] text-xs uppercase">2. Chamados Técnicos e Cópia de Segurança</h3>
+              <button id="btn-erp-export-backup" onclick="handleErpExportBackup()" class="px-3 py-1.5 border border-stone-400 bg-stone-200 hover:bg-stone-300 text-stone-900 font-semibold text-xs transition cursor-pointer">
                 Exportar Backup (.json)
               </button>
             </div>
@@ -383,12 +428,18 @@
               <!-- Preenchido via JS -->
             </div>
 
-            <div id="erp-storage-log-box" class="mt-3 p-3 rounded bg-zinc-900 text-zinc-200 font-mono-code text-xs">
-              <div class="text-[11px] text-zinc-400 mb-1">Status de Leitura do Histórico Local:</div>
+            <div id="erp-storage-log-box" class="mt-3 p-3 bg-stone-900 text-stone-200 font-mono-code text-xs border border-stone-700">
+              <div class="text-[11px] text-stone-400 mb-1">Saída do Leitor de Histórico Local (Storage):</div>
               <div id="erp-storage-log-output" class="text-red-400">
                 Uncaught SyntaxError: Unexpected token 'C' in JSON at position 16 ("{registro_2021: CORROMPIDO_SEM_ASPAS}")
               </div>
             </div>
+          </div>
+
+          <!-- Rodapé interno do Site Fake -->
+          <div class="pt-2 border-t border-stone-300 flex items-center justify-between text-[11px] text-stone-500">
+            <span>SysMaint Sistemas Corporativos Ltda. (2021)</span>
+            <span>Ambiente de Intranet</span>
           </div>
 
         </div>
@@ -397,22 +448,30 @@
     </section>
 
     <!-- ========================================================================
-         COLUNA DIREITA (5 COLUNAS): APENAS O PAINEL PARA O ALUNO DIGITAR O CÓDIGO
+         COLUNA DIREITA (5 COLUNAS): FERRAMENTA DA DISCIPLINA (EDITOR ESCURO)
          ======================================================================== -->
-    <aside id="maintenance-workbench" class="lg:col-span-5 flex flex-col gap-4 lg:sticky lg:top-16">
+    <aside id="maintenance-workbench" class="lg:col-span-5 flex flex-col lg:sticky lg:top-16">
 
-      <div class="bg-white border border-zinc-300 rounded shadow-sm p-4">
-        <div class="pb-3 mb-3 border-b border-zinc-200">
-          <h2 class="text-sm font-bold text-zinc-900">Editor de Manutenção do Código-Fonte</h2>
-          <p class="text-xs text-zinc-500 mt-0.5">
-            Consulte o Manual PDF, selecione o bloco correspondente do sistema e digite o código corrigido abaixo.
+      <!-- Cabeçalho identificando a Bancada da Disciplina -->
+      <div class="bg-slate-950 text-white px-4 py-2.5 rounded-t border-t border-x border-slate-700 flex items-center justify-between">
+        <span class="px-2 py-0.5 rounded bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-mono-code font-semibold text-[11px]">
+          FERRAMENTA DA DISCIPLINA
+        </span>
+        <span class="text-[11px] text-slate-400 font-mono-code">Bancada de Código do Aluno</span>
+      </div>
+
+      <div class="bg-slate-900 text-slate-100 border-2 border-slate-700 rounded-b shadow-lg p-4">
+        <div class="pb-3 mb-3 border-b border-slate-800">
+          <h2 class="text-sm font-bold text-white">Editor de Manutenção do Código-Fonte</h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Leia a explicação e o código exemplo na Apostila PDF, escolha o bloco abaixo e digite a correção para consertar o Site Fake ao lado.
           </p>
         </div>
 
         <!-- Seletor direto dos 12 blocos de código -->
-        <div class="mb-3">
-          <label class="block text-[11px] font-semibold uppercase text-zinc-500 mb-1.5">
-            Selecione o Bloco do Código-Fonte (01 a 12):
+        <div class="mb-3.5">
+          <label class="block text-[11px] font-semibold uppercase text-slate-400 mb-1.5">
+            Selecione o Bloco para Manutenção (01 a 12):
           </label>
           <div id="mission-pills-container" class="grid grid-cols-4 gap-1.5">
             <!-- Preenchido via JS -->
@@ -420,18 +479,18 @@
         </div>
 
         <!-- Área de Edição de Código do Aluno -->
-        <div id="active-mission-card" class="border border-zinc-200 rounded p-3.5 space-y-3 bg-zinc-50/50">
+        <div id="active-mission-card" class="border border-slate-700 rounded p-3.5 space-y-3 bg-slate-950/60">
           <div class="flex items-center justify-between gap-2">
             <div>
               <div class="flex items-center gap-2">
-                <span id="mission-detail-number" class="text-[11px] font-mono-code font-bold px-2 py-0.5 rounded bg-zinc-900 text-white">
+                <span id="mission-detail-number" class="text-[11px] font-mono-code font-bold px-2 py-0.5 rounded bg-amber-500 text-slate-950">
                   BLOCO 01
                 </span>
-                <span id="mission-detail-status" class="text-[11px] font-medium px-2 py-0.5 rounded bg-red-100 text-red-800">
+                <span id="mission-detail-status" class="text-[11px] font-medium px-2 py-0.5 rounded bg-red-950 text-red-300 border border-red-800">
                   Com defeito
                 </span>
               </div>
-              <h3 id="mission-detail-title" class="text-xs font-semibold text-zinc-800 mt-1.5 font-mono-code">
+              <h3 id="mission-detail-title" class="text-xs font-semibold text-slate-300 mt-1.5 font-mono-code">
                 Arquivo: sistema.html
               </h3>
             </div>
@@ -439,17 +498,17 @@
 
           <!-- Código Atual no Sistema (Somente Leitura) -->
           <div>
-            <div class="text-[11px] font-mono-code text-zinc-600 mb-1">
-              Código atual presente no sistema:
+            <div class="text-[11px] font-mono-code text-slate-400 mb-1">
+              Trecho original quebrado no Site Fake:
             </div>
-            <pre id="mission-broken-code" class="bg-zinc-900 text-zinc-300 rounded p-2.5 text-[11px] font-mono-code overflow-x-auto whitespace-pre-wrap"></pre>
+            <pre id="mission-broken-code" class="bg-slate-950 text-red-300 border border-slate-800 rounded p-2.5 text-[11px] font-mono-code overflow-x-auto whitespace-pre-wrap"></pre>
           </div>
 
           <!-- Campo para o aluno digitar o código que resolve o problema -->
           <div>
             <div class="flex items-center justify-between text-[11px] mb-1">
-              <span class="font-mono-code text-zinc-800 font-semibold">Digite o código corrigido:</span>
-              <button onclick="clearStudentEditor()" class="text-zinc-500 hover:text-zinc-800 underline cursor-pointer">
+              <span class="font-mono-code text-emerald-300 font-semibold">Digite aqui o seu código corrigido:</span>
+              <button onclick="clearStudentEditor()" class="text-slate-400 hover:text-white underline cursor-pointer">
                 Restaurar trecho original
               </button>
             </div>
@@ -457,29 +516,29 @@
               id="mission-patch-editor"
               rows="6"
               spellcheck="false"
-              placeholder="Digite aqui o código adaptado conforme as instruções do PDF..."
-              class="w-full bg-white border border-zinc-300 focus:border-zinc-800 rounded p-2.5 text-xs font-mono-code text-zinc-900 focus:outline-none"
+              placeholder="Adapte o código exemplo do PDF e digite aqui..."
+              class="w-full bg-slate-950 border border-slate-600 focus:border-amber-400 rounded p-2.5 text-xs font-mono-code text-emerald-200 focus:outline-none"
             ></textarea>
             <div id="code-validation-feedback" class="hidden mt-2 p-2 rounded text-xs font-mono-code"></div>
           </div>
 
           <!-- Botões de Navegação e Aplicação -->
-          <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-zinc-200">
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800">
             <div class="flex items-center gap-1.5">
-              <button onclick="navigateMission(-1)" class="px-2.5 py-1.5 rounded border border-zinc-300 bg-white hover:bg-zinc-100 text-xs text-zinc-700 font-medium cursor-pointer">
-                Bloco Anterior
+              <button onclick="navigateMission(-1)" class="px-2.5 py-1.5 rounded border border-slate-700 bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium cursor-pointer">
+                Anterior
               </button>
-              <button onclick="navigateMission(1)" class="px-2.5 py-1.5 rounded border border-zinc-300 bg-white hover:bg-zinc-100 text-xs text-zinc-700 font-medium cursor-pointer">
-                Próximo Bloco
+              <button onclick="navigateMission(1)" class="px-2.5 py-1.5 rounded border border-slate-700 bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium cursor-pointer">
+                Próximo
               </button>
             </div>
 
             <div class="flex items-center gap-2">
-              <button id="btn-revert-mission" onclick="revertCurrentMission()" class="hidden px-3 py-1.5 rounded border border-zinc-300 bg-white hover:bg-zinc-100 text-zinc-700 text-xs font-medium transition cursor-pointer">
-                Remover Correção
+              <button id="btn-revert-mission" onclick="revertCurrentMission()" class="hidden px-3 py-1.5 rounded border border-slate-600 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium transition cursor-pointer">
+                Desfazer
               </button>
-              <button id="btn-apply-mission" onclick="applyCurrentMissionPatch()" class="px-3.5 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs transition cursor-pointer">
-                Testar e Aplicar Código
+              <button id="btn-apply-mission" onclick="applyCurrentMissionPatch()" class="px-3.5 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition cursor-pointer">
+                Testar e Aplicar no Site Fake
               </button>
             </div>
           </div>
@@ -907,10 +966,10 @@
       const kpiContainerEl = document.getElementById("erp-kpi-container");
 
       if (isMissionFixed(1)) {
-        headerEl.className = "modern-flex-header bg-zinc-900 text-white p-3.5 rounded";
+        headerEl.className = "modern-flex-header bg-[#1e3a5f] text-white p-3.5 border border-[#0f2942]";
         kpiContainerEl.className = "modern-grid-kpis";
       } else {
-        headerEl.className = "legacy-float-brokenHeader bg-zinc-900 text-white p-3.5 rounded";
+        headerEl.className = "legacy-float-brokenHeader bg-[#1e3a5f] text-white p-3.5 border border-[#0f2942]";
         kpiContainerEl.className = "legacy-float-brokenKpis";
       }
 
@@ -922,17 +981,17 @@
       if (isMissionFixed(2)) {
         brokenLogo.classList.add("hidden");
         fixedLogo.classList.remove("hidden");
-        sslSeal.className = "font-mono-code text-[11px] text-emerald-400";
+        sslSeal.className = "font-mono-code text-[11px] text-emerald-300";
         sslSeal.textContent = "Ativos Locais OK";
-        browserLock.className = "font-mono-code text-[11px] text-emerald-700";
+        browserLock.className = "font-mono-code text-[11px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300";
         browserLock.textContent = "HTTPS Seguro";
       } else {
         brokenLogo.classList.remove("hidden");
         fixedLogo.classList.add("hidden");
         sslSeal.className = "font-mono-code text-[11px] text-red-300";
         sslSeal.textContent = "CDN 2019: Offline";
-        browserLock.className = "font-mono-code text-[11px] text-red-700";
-        browserLock.textContent = "Conteúdo Misto (HTTP)";
+        browserLock.className = "font-mono-code text-[11px] px-2 py-0.5 rounded bg-red-100 text-red-800 border border-red-300";
+        browserLock.textContent = "Alerta: Conteúdo Misto (HTTP)";
       }
 
       const m04Banner = document.getElementById("erp-mission-04-banner");
@@ -1191,17 +1250,17 @@
 
       container.innerHTML = MISSIONS_DATA.map(m => {
         const isSelected = m.id === currentMissionId;
-        let btnClass = "bg-white border-zinc-300 text-zinc-700 hover:bg-zinc-50";
+        let btnClass = "bg-slate-950 border-slate-700 text-slate-300 hover:bg-slate-800";
         if (isSelected) {
-          btnClass = "bg-zinc-900 border-zinc-900 text-white";
+          btnClass = "bg-amber-500 border-amber-400 text-slate-950";
         } else if (m.fixed) {
-          btnClass = "bg-emerald-50 border-emerald-300 text-emerald-900";
+          btnClass = "bg-emerald-950/90 border-emerald-700 text-emerald-300";
         }
 
         return `
           <button onclick="selectMission(${m.id})" class="p-2 rounded border text-center transition cursor-pointer ${btnClass}">
             <div class="text-xs font-mono-code font-bold">Bloco ${String(m.id).padStart(2, "0")}</div>
-            <div class="text-[10px] opacity-80 mt-0.5">${m.fixed ? "Corrigido" : "Pendente"}</div>
+            <div class="text-[10px] opacity-85 mt-0.5">${m.fixed ? "Corrigido" : "Pendente"}</div>
           </button>
         `;
       }).join("");
@@ -1227,17 +1286,17 @@
       const btnApply = document.getElementById("btn-apply-mission");
 
       if (mission.fixed) {
-        statusEl.className = "text-[11px] font-medium px-2 py-0.5 rounded bg-emerald-100 text-emerald-800";
+        statusEl.className = "text-[11px] font-medium px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700";
         statusEl.textContent = "Corrigido";
         editorEl.value = mission.studentSubmittedCode || mission.recommendedPatch;
         btnRevert.classList.remove("hidden");
         btnApply.textContent = "Atualizar Código";
       } else {
-        statusEl.className = "text-[11px] font-medium px-2 py-0.5 rounded bg-red-100 text-red-800";
+        statusEl.className = "text-[11px] font-medium px-2 py-0.5 rounded bg-red-950 text-red-300 border border-red-800";
         statusEl.textContent = "Com defeito";
         editorEl.value = mission.studentSubmittedCode || mission.brokenCode;
         btnRevert.classList.add("hidden");
-        btnApply.textContent = "Testar e Aplicar Código";
+        btnApply.textContent = "Testar e Aplicar no Site Fake";
       }
     }
 
@@ -1256,7 +1315,7 @@
       const feedbackEl = document.getElementById("code-validation-feedback");
 
       if (!typedCode || typedCode.trim() === "" || typedCode.trim() === mission.brokenCode.trim()) {
-        feedbackEl.className = "mt-2 p-2 rounded text-xs font-mono-code bg-red-50 border border-red-300 text-red-800";
+        feedbackEl.className = "mt-2 p-2 rounded text-xs font-mono-code bg-red-950 border border-red-800 text-red-200";
         feedbackEl.textContent = "O código não foi alterado. Consulte o Manual PDF, adapte o código exemplo e digite a solução.";
         feedbackEl.classList.remove("hidden");
         return;
@@ -1264,7 +1323,7 @@
 
       const validation = mission.validateStudentCode(typedCode);
       if (!validation.ok) {
-        feedbackEl.className = "mt-2 p-2 rounded text-xs font-mono-code bg-red-50 border border-red-300 text-red-800";
+        feedbackEl.className = "mt-2 p-2 rounded text-xs font-mono-code bg-red-950 border border-red-800 text-red-200";
         feedbackEl.textContent = validation.msg;
         feedbackEl.classList.remove("hidden");
         return;
@@ -1285,11 +1344,11 @@
       selectMission(mission.id);
       renderFakeErpSystem();
 
-      feedbackEl.className = "mt-2 p-2 rounded text-xs font-mono-code bg-emerald-50 border border-emerald-300 text-emerald-900";
-      feedbackEl.textContent = "Código validado e aplicado com sucesso no sistema.";
+      feedbackEl.className = "mt-2 p-2 rounded text-xs font-mono-code bg-emerald-950 border border-emerald-700 text-emerald-200";
+      feedbackEl.textContent = "Código validado e aplicado com sucesso no Site Fake.";
       feedbackEl.classList.remove("hidden");
 
-      showToast(`${mission.code} aplicado no sistema.`, "success");
+      showToast(`${mission.code} aplicado no Site Fake.`, "success");
     }
 
     function revertCurrentMission() {
@@ -1320,10 +1379,10 @@
       const badge = document.getElementById("system-health-badge");
       const remaining = totalCount - fixedCount;
       if (remaining === 0) {
-        badge.className = "text-xs font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded";
+        badge.className = "text-xs font-medium text-emerald-300 bg-emerald-950 border border-emerald-700 px-2 py-0.5 rounded";
         badge.textContent = "Sistema estabilizado (12/12)";
       } else {
-        badge.className = "text-xs font-medium text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded";
+        badge.className = "text-xs font-medium text-red-300 bg-red-950/80 border border-red-800 px-2 py-0.5 rounded";
         badge.textContent = `${remaining} correções pendentes`;
       }
     }
@@ -1482,6 +1541,23 @@
       selectMission(1);
       renderFakeErpSystem();
       showToast("Estado original (12 defeitos) restaurado.", "info");
+    }
+
+    function downloadBrokenSourceCode() {
+      if (!isTeacherUnlocked) return;
+      const sourceComment = MISSIONS_DATA.map(m =>
+        `/* === ${m.code} (${m.fileSection}) ===\n${m.brokenCode}\n*/`
+      ).join("\n\n");
+      const blob = new Blob([sourceComment], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "blocos_sistema_quebrado.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      document.getElementById("teacher-dropdown").classList.add("hidden");
     }
 
     function showToast(message, type = "info") {
